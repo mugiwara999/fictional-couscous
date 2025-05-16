@@ -1,5 +1,5 @@
 {
-  "name": "image-generation-platform",
+  "name": "photo-forge",
   "private": true,
   "scripts": {
     "build": "turbo build",
