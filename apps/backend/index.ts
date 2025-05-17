@@ -12,8 +12,8 @@ import cors from "cors";
 import { authMiddleware } from "./middleware";
 import dotenv from "dotenv";
 
-import paymentRoutes from "./routes/payment.routes";
-import { router as webhookRouter } from "./routes/webhook.routes";
+// import paymentRoutes from "./routes/payment.routes";
+// import { router as webhookRouter } from "./routes/webhook.routes";
 
 const IMAGE_GEN_CREDITS = 1;
 const TRAIN_MODEL_CREDITS = 20;
@@ -483,8 +483,8 @@ app.get("/model/status/:modelId", authMiddleware, async (req, res) => {
   }
 });
 
-app.use("/payment", paymentRoutes);
-app.use("/api/webhook", webhookRouter);
+// app.use("/payment", paymentRoutes);
+// app.use("/api/webhook", webhookRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
