@@ -51,25 +51,25 @@ export const testimonials = [
 
 export const carouselImages = [
   {
-    url: "https://r2-us-west.photoai.com/1739277231-0b2465581e9551abecd467b163d0d48a-1.png",
+    url: "https://pub-154f93e393164c99b9b526b1cc56b58d.r2.dev/linkedin.jpg",
     title: "Professional Portrait",
     description: "Perfect for LinkedIn and business profiles",
     style: "Corporate",
   },
   {
-    url: "https://r2-us-west.photoai.com/1739273789-920e7410ef180855f9a5718d1e37eb3a-1.png",
+    url: "https://pub-154f93e393164c99b9b526b1cc56b58d.r2.dev/IMG_0816~4.JPG",
     title: "Casual Lifestyle",
     description: "Natural and relaxed everyday portraits",
     style: "Casual",
   },
   {
-    url: "https://r2-us-west.photoai.com/1739273783-9effbeb7239423cba9629e7dd06f3565-1.png",
+    url: "https://pub-154f93e393164c99b9b526b1cc56b58d.r2.dev/IMG-20241115-WA0001~2.jpg",
     title: "Creative Portrait",
     description: "Artistic shots with unique lighting",
     style: "Creative",
   },
   {
-    url: "https://r2-us-west.photoai.com/1738861046-1175c64ebe0ecfe10b857e205b3b4a1e-3.png",
+    url: "https://pub-154f93e393164c99b9b526b1cc56b58d.r2.dev/IMG-20230225-WA0013.jpg",
     title: "Fashion Portrait",
     description: "High-end fashion inspired photography",
     style: "Fashion",
