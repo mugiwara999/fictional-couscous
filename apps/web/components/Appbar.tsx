@@ -23,29 +23,30 @@ export function Appbar() {
           className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 backdrop-blur-xl rounded-2xl bg-background/50 border border-neutral-300 dark:border-neutral-900 shadow-lg"
         >
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/"
-                className="flex items-center space-x-1 transition-opacity hover:opacity-90"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6"
-                >
-                  <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-                </svg>
-                <span className="hidden font-bold font-mono text-xl sm:inline-block">
-                  100<span className="text-pink-500">x</span>Photos
-                </span>
-              </Link>
-            </motion.div>
+{/* Logo */}
+<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+  <Link
+    href="/"
+    className="flex items-center space-x-1 transition-opacity hover:opacity-90"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-6 w-6"
+    >
+      {/* Consider replacing this with a camera or anvil icon */}
+      <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+    </svg>
+    <span className="hidden font-bold font-mono text-xl sm:inline-block">
+      Photo<span className="text-pink-500">Forge</span>
+    </span>
+  </Link>
+</motion.div>
 
             {/* Auth & Pricing */}
             <div className="flex items-center md:gap-4 gap-2">
