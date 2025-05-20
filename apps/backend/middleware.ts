@@ -45,7 +45,7 @@ export async function authMiddleware(
     const decoded = jwt.verify(token, formattedKey, {
       algorithms: ["RS256"],
       issuer:
-        process.env.CLERK_ISSUER || "https://clerk.photo.rahulkoyye.top/",
+        process.env.CLERK_ISSUER || "https://clerk.photo.rahulkoyye.top",
       complete: true,
     });
 
