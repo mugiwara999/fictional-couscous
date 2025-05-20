@@ -70,24 +70,24 @@ export function PaymentSuccessContent() {
           }
         }
         // Handle Stripe verification
-        else if (sessionId) {
-          const response = await fetch(`${BACKEND_URL}/payment/verify`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ sessionId }),
-          });
-
-          const data = await response.json();
-
-          if (response.ok && data.success) {
-            setVerified(true);
-          } else {
-            router.push("/payment/cancel");
-          }
-        }
+        // else if (sessionId) {
+        //   const response = await fetch(`${BACKEND_URL}/payment/verify`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //     body: JSON.stringify({ sessionId }),
+        //   });
+        //
+        //   const data = await response.json();
+        //
+        //   if (response.ok && data.success) {
+        //     setVerified(true);
+        //   } else {
+        //     router.push("/payment/cancel");
+        //   }
+        // }
       } catch (error) {
         console.error("Payment verification error:", error);
         router.push("/payment/cancel");

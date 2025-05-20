@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "@/app/config";
 import { RazorpayResponse } from "@/types";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
 const apiUrl = BACKEND_URL;
 
 // Create an event bus for credit updates
@@ -44,7 +44,7 @@ export function usePayment() {
         name: data.name,
         description: data.description,
         order_id: data.order_id,
-        handler: function (response: RazorpayResponse) {
+        handler: function(response: RazorpayResponse) {
           // Redirect to verify page with all necessary parameters
           const params = new URLSearchParams({
             razorpay_payment_id: response.razorpay_payment_id,
@@ -56,7 +56,7 @@ export function usePayment() {
           window.location.href = `/payment/verify?${params.toString()}`;
         },
         modal: {
-          ondismiss: function () {
+          ondismiss: function() {
             window.location.href = "/payment/cancel";
           },
         },
