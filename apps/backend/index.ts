@@ -27,7 +27,7 @@ const falAiModel = new FalAIModel();
 const app = express();
 app.use(
   cors({
-    origin: ["http://ec2-13-233-98-189.ap-south-1.compute.amazonaws.com", "http://localhost:3000"],
+    origin: ["https://photo.rahulkoyye.top", "http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
