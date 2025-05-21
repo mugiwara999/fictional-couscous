@@ -46,10 +46,6 @@ export function Hero() {
               <Features />
             </section>
 
-            <section className="relative">
-              <div className="absolute inset-0 dark:bg-gradient-to-b from-transparent to-black/20 pointer-events-none" />
-              <Testimonials />
-            </section>
 
             <PricingSection />
 
