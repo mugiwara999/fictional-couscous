@@ -3,6 +3,7 @@ import Razorpay from "razorpay";
 import { prismaClient } from "db";
 import crypto from "crypto";
 import { PlanType } from "@prisma/client";
+import redisService from "./redis.js";
 
 // Validate environment variables
 // const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
@@ -371,6 +372,51 @@ export async function createSubscriptionRecord(
   }
 }
 
+// Redis caching functions for payment service
+export async function cachePaymentOrder(orderId: string, orderData: any, ttl: number = 3600) {
+  try {
+    await redisService.set(`payment_order:${orderId}`, JSON.stringify(orderData), ttl);
+  } catch (error) {
+    console.error('Failed to cache payment order:', error);
+  }
+}
+
+export async function getCachedPaymentOrder(orderId: string) {
+  try {
+    const cached = await redisService.get(`payment_order:${orderId}`);
+    return cached ? JSON.parse(cached) : null;
+  } catch (error) {
+    console.error('Failed to get cached payment order:', error);
+    return null;
+  }
+}
+
+export async function cacheUserCredits(userId: string, credits: number, ttl: number = 300) {
+  try {
+    await redisService.set(`user_credits:${userId}`, credits.toString(), ttl);
+  } catch (error) {
+    console.error('Failed to cache user credits:', error);
+  }
+}
+
+export async function getCachedUserCredits(userId: string) {
+  try {
+    const cached = await redisService.get(`user_credits:${userId}`);
+    return cached ? parseInt(cached) : null;
+  } catch (error) {
+    console.error('Failed to get cached user credits:', error);
+    return null;
+  }
+}
+
+export async function invalidateUserCreditsCache(userId: string) {
+  try {
+    await redisService.del(`user_credits:${userId}`);
+  } catch (error) {
+    console.error('Failed to invalidate user credits cache:', error);
+  }
+}
+
 export const PaymentService = {
   // createStripeSession,
   createRazorpayOrder,
@@ -378,4 +424,9 @@ export const PaymentService = {
   // getStripeSession,
   createSubscriptionRecord,
   addCreditsForPlan,
+  cachePaymentOrder,
+  getCachedPaymentOrder,
+  cacheUserCredits,
+  getCachedUserCredits,
+  invalidateUserCreditsCache,
 };

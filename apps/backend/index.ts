@@ -14,6 +14,9 @@ import dotenv from "dotenv";
 
 import paymentRoutes from "./routes/payment.routes";
 import { router as webhookRouter } from "./routes/webhook.routes";
+import redisRoutes from "./routes/redis.routes";
+import redisService from "./services/redis.js";
+import { rateLimit, cache, sessionMiddleware } from "./middleware/redis.js";
 
 const IMAGE_GEN_CREDITS = 1;
 const TRAIN_MODEL_CREDITS = 20;
@@ -25,6 +28,17 @@ const PORT = process.env.PORT || 8080;
 const falAiModel = new FalAIModel();
 
 const app = express();
+
+// Initialize Redis connection
+(async () => {
+  try {
+    await redisService.connect();
+    console.log('Redis connected successfully');
+  } catch (error) {
+    console.error('Failed to connect to Redis:', error);
+  }
+})();
+
 app.use(
   cors({
     origin: ["https://photo.rahulkoyye.top", "http://localhost:3000"],
@@ -34,6 +48,9 @@ app.use(
   })
 );
 app.use(express.json());
+
+// Add Redis middleware
+app.use(sessionMiddleware());
 
 app.get("/pre-signed-url", async (req, res) => {
   const key = `models/${Date.now()}_${Math.random()}.zip`;
@@ -53,7 +70,7 @@ app.get("/pre-signed-url", async (req, res) => {
   });
 });
 
-app.post("/ai/training", authMiddleware, async (req, res) => {
+app.post("/ai/training", rateLimit(10, 3600), authMiddleware, async (req, res) => {
   try {
     const parsedBody = TrainModel.safeParse(req.body);
     if (!parsedBody.success) {
@@ -95,7 +112,7 @@ app.post("/ai/training", authMiddleware, async (req, res) => {
   }
 });
 
-app.post("/ai/generate", authMiddleware, async (req, res) => {
+app.post("/ai/generate", rateLimit(20, 3600), authMiddleware, async (req, res) => {
   const parsedBody = GenerateImage.safeParse(req.body);
 
   if (!parsedBody.success) {
@@ -485,6 +502,20 @@ app.get("/model/status/:modelId", authMiddleware, async (req, res) => {
 
 app.use("/payment", paymentRoutes);
 app.use("/api/webhook", webhookRouter);
+app.use("/redis", redisRoutes);
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('Shutting down gracefully...');
+  await redisService.disconnect();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('Shutting down gracefully...');
+  await redisService.disconnect();
+  process.exit(0);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

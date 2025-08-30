@@ -7,6 +7,7 @@ PhotoForge is a powerful AI image platform that lets you generate stunning image
 - **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Shadcn/UI
 - **Backend**: Node.js with TypeScript
 - **Authentication**: Clerk
+- **Caching & Session Management**: Redis
 - **Containerization**: Docker
 - **Package Management**: Bun
 - **Monorepo Management**: Turborepo
@@ -28,6 +29,7 @@ PhotoForge is a powerful AI image platform that lets you generate stunning image
 - Docker
 - Bun (for local development)
 - Clerk Account (for authentication)
+- Redis (included via Docker Compose)
 
 ### Environment Setup
 
@@ -47,6 +49,9 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
 # Install dependencies
 bun install
 
+# Start Redis (required for backend)
+docker-compose up -d
+
 # Run development servers
 bun run dev
 
@@ -61,6 +66,9 @@ bun run build
 - Image gallery with preview
 - Download generated images
 - Responsive design
+- Redis caching and session management
+- Rate limiting and API protection
+- Real-time pub/sub messaging
 
 ## Development Commands
 
